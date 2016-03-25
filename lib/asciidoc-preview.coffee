@@ -16,7 +16,12 @@ module.exports =
     safeMode:
       type: 'string'
       default: 'safe'
-    showToc:
+    tocType:
+      title: 'Show Table of Contents'
+      type: 'string'
+      default: 'preamble'
+      enum: ['none','preamble','macro']
+    skipFrontMatter:
       type: 'boolean'
       default: true
     showNumberedHeadings:
@@ -27,7 +32,7 @@ module.exports =
       default: false
     defaultAttributes:
       type: 'string'
-      default: 'platform=opal platform-opal env=browser env-browser source-highlighter=highlight.js'
+      default: 'platform=opal platform-opal env=browser env-browser source-highlighter=highlight.js data-uri!'
     grammars:
       type: 'array'
       default: [
@@ -52,8 +57,17 @@ module.exports =
       'asciidoc-preview:toggle-compat-mode': ->
         keyPath = 'asciidoc-preview.compatMode'
         atom.config.set(keyPath, !atom.config.get(keyPath))
-      'asciidoc-preview:toggle-show-toc': ->
-        keyPath = 'asciidoc-preview.showToc'
+      'asciidoc-preview:set-toc-none': ->
+        keyPath = 'asciidoc-preview.tocType'
+        atom.config.set(keyPath, 'none')
+      'asciidoc-preview:set-toc-preamble': ->
+        keyPath = 'asciidoc-preview.tocType'
+        atom.config.set(keyPath, 'preamble')
+      'asciidoc-preview:set-toc-macro': ->
+        keyPath = 'asciidoc-preview.tocType'
+        atom.config.set(keyPath, 'macro')
+      'asciidoc-preview:toggle-skip-front-matter': ->
+        keyPath = 'asciidoc-preview.skipFrontMatter'
         atom.config.set(keyPath, !atom.config.get(keyPath))
       'asciidoc-preview:toggle-show-numbered-headings': ->
         keyPath = 'asciidoc-preview.showNumberedHeadings'

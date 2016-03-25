@@ -130,7 +130,8 @@ class AsciiDocPreviewView extends ScrollView
     @disposables.add atom.config.onDidChange 'asciidoc-preview.compatMode', changeHandler
     @disposables.add atom.config.onDidChange 'asciidoc-preview.safeMode', changeHandler
     @disposables.add atom.config.onDidChange 'asciidoc-preview.defaultAttributes', changeHandler
-    @disposables.add atom.config.onDidChange 'asciidoc-preview.showToc', changeHandler
+    @disposables.add atom.config.onDidChange 'asciidoc-preview.tocType', changeHandler
+    @disposables.add atom.config.onDidChange 'asciidoc-preview.skipFrontMatter', changeHandler
     @disposables.add atom.config.onDidChange 'asciidoc-preview.showNumberedHeadings', changeHandler
 
   renderAsciiDoc: ->
@@ -239,7 +240,7 @@ class AsciiDocPreviewView extends ScrollView
       filePath += '.html'
     else
       filePath = 'untitled.adoc.html'
-      if projectPath = atom.project.getPath()
+      if projectPath = atom.project.getPaths()[0]
         filePath = path.join(projectPath, filePath)
 
     if htmlFilePath = atom.showSaveDialogSync(filePath)
